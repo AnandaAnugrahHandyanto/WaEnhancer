@@ -1,5 +1,5 @@
 [WA AND WA BUSINESS]
-* Add 2.25.20.xx and 2.25.21.xx to supported versions
+* Update supported versions to 2.25.18.xx - 2.25.22.xx for WhatsApp and WhatsApp Business
 
 [BUGS FIXED]
 * Fixed bug in Separate Chats/Groups
