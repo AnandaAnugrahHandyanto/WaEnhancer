@@ -136,19 +136,24 @@ public class CustomToolbar extends Feature {
                     return true;
                 });
             } else if (typeArchive.equals("3")) {
-                var chatListView = homeActivity.findViewById(android.R.id.list);
-                if (chatListView != null) {
-                    var onMultiClickListener = new OnMultiClickListener(5, 700) {
-                        @Override
-                        public void onMultiClick(View v) {
-                            Intent intent = new Intent();
-                            intent.setClassName(Utils.getApplication().getPackageName(), "com.whatsapp.conversationslist.ArchivedConversationsActivity");
-                            homeActivity.startActivity(intent);
-                        }
-                    };
-                    chatListView.setOnClickListener(onMultiClickListener);
-                }
+                var bottomNavView = homeActivity.findViewById(Utils.getID("nav_view", "id"));
+
+            if (bottomNavView != null) {
+                var chatsTab = bottomNavView.findViewById(Utils.getID("navigation_chat", "id"));
+
+            if (chatsTab != null) {
+                var onMultiClickListener = new OnMultiClickListener(5, 700) {
+                    @Override
+                    public void onMultiClick(View v) {
+                        Intent intent = new Intent();
+                        intent.setClassName(Utils.getApplication().getPackageName(), "com.whatsapp.conversationslist.ArchivedConversationsActivity");
+                        homeActivity.startActivity(intent);
+                    }
+                };
+                chatsTab.setOnClickListener(onMultiClickListener);
             }
+        }
+    }
 
             if (!showBio && !showName) return;
 
