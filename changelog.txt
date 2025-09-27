@@ -1,8 +1,1 @@
-[WA AND WA BUSINESS]
-* Add support for 2.25.25.XX
-
-[FEATURE]
-* Modified the number of clicks required to reveal the archive button from 5 to 25.
-
-[NOTE]
-* Show online icon on the conversation screen is not working yet, wait for a next update.
+# Changelog

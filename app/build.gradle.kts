@@ -157,6 +157,7 @@ dependencies {
     implementation(libs.betterypermissionhelper)
     implementation(libs.bcpkix.jdk18on)
     implementation(libs.arscblamer)
+    implementation("com.github.Dimezis:BlurView:version-2.0.2")
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 }

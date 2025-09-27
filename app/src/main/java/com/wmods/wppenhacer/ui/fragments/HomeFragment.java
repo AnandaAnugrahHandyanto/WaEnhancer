@@ -1,5 +1,8 @@
 package com.wmods.wppenhacer.ui.fragments;
 
+import android.graphics.drawable.Drawable;
+import eightbitlab.com.blurview.BlurView;
+import eightbitlab.com.blurview.RenderScriptBlur;
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -49,6 +52,30 @@ public class HomeFragment extends BaseFragment {
     private FragmentHomeBinding binding;
 
     @Override
+public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+
+    float radius = 20f;
+
+    View decorView = requireActivity().getWindow().getDecorView();
+    ViewGroup rootView = view.findViewById(R.id.root);
+    Drawable windowBackground = decorView.getBackground();
+    setupBlurView(view, R.id.blurView1, rootView, windowBackground, radius);
+    setupBlurView(view, R.id.blurView2, rootView, windowBackground, radius);
+    setupBlurView(view, R.id.blurView3, rootView, windowBackground, radius);
+    setupBlurView(view, R.id.blurView4, rootView, windowBackground, radius);
+    setupBlurView(view, R.id.blurView5, rootView, windowBackground, radius);
+}
+
+private void setupBlurView(View view, int blurViewId, ViewGroup root, Drawable background, float radius) {
+    BlurView blurView = view.findViewById(blurViewId);
+    if (blurView != null) {
+        blurView.setupWith(root, new RenderScriptBlur(requireContext()))
+                .setFrameClearDrawable(background)
+                .setBlurRadius(radius);
+    }
+}
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -69,7 +96,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+        ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
         checkStateWpp(requireActivity());
@@ -102,12 +129,15 @@ public class HomeFragment extends BaseFragment {
         binding.statusTitle3.setText(R.string.business_in_background);
         var version = intent.getStringExtra("VERSION");
         var supported_list = Arrays.asList(context.getResources().getStringArray(R.array.supported_versions_business));
+        binding.statusIcon3.clearColorFilter();
+
         if (version != null && supported_list.stream().anyMatch(s -> version.startsWith(s.replace(".xx", "")))) {
             binding.statusSummary3.setText(getString(R.string.version_s, version));
-            binding.status3.setCardBackgroundColor(context.getColor(R.color.material_state_green));
+            // Hapus: binding.status3.setCardBackgroundColor(context.getColor(R.color.material_state_green));
         } else {
             binding.statusSummary3.setText(getString(R.string.version_s_not_listed, version));
-            binding.status3.setCardBackgroundColor(context.getColor(R.color.material_state_yellow));
+            // Ganti warna ikon, bukan background
+            binding.statusIcon3.setColorFilter(ContextCompat.getColor(context, R.color.material_state_yellow));
         }
         binding.rebootBtn2.setVisibility(View.VISIBLE);
         binding.statusSummary3.setVisibility(View.VISIBLE);
@@ -119,13 +149,14 @@ public class HomeFragment extends BaseFragment {
         binding.statusTitle2.setText(R.string.whatsapp_in_background);
         var version = intent.getStringExtra("VERSION");
         var supported_list = Arrays.asList(context.getResources().getStringArray(R.array.supported_versions_wpp));
+        binding.statusIcon2.clearColorFilter();
 
         if (version != null && supported_list.stream().anyMatch(s -> version.startsWith(s.replace(".xx", "")))) {
             binding.statusSummary1.setText(getString(R.string.version_s, version));
-            binding.status2.setCardBackgroundColor(context.getColor(R.color.material_state_green));
+            // Hapus: binding.status2.setCardBackgroundColor(context.getColor(R.color.material_state_green));
         } else {
             binding.statusSummary1.setText(getString(R.string.version_s_not_listed, version));
-            binding.status2.setCardBackgroundColor(context.getColor(R.color.material_state_yellow));
+            binding.statusIcon2.setColorFilter(ContextCompat.getColor(context, R.color.material_state_yellow));
         }
         binding.rebootBtn.setVisibility(View.VISIBLE);
         binding.statusSummary1.setVisibility(View.VISIBLE);
@@ -226,19 +257,19 @@ public class HomeFragment extends BaseFragment {
     }
 
     @SuppressLint("StringFormatInvalid")
-    private void checkStateWpp(FragmentActivity activity) {
-
+        private void checkStateWpp(FragmentActivity activity) {
         if (MainActivity.isXposedEnabled()) {
             binding.statusIcon.setImageResource(R.drawable.ic_round_check_circle_24);
             binding.statusTitle.setText(R.string.module_enabled);
             binding.statusSummary.setText(String.format(getString(R.string.version_s), BuildConfig.VERSION_NAME));
-            binding.status.setCardBackgroundColor(activity.getColor(R.color.material_state_green));
+            binding.statusIcon.clearColorFilter(); // Pastikan ikon kembali ke warna normal
         } else {
             binding.statusIcon.setImageResource(R.drawable.ic_round_error_outline_24);
             binding.statusTitle.setText(R.string.module_disabled);
-            binding.status.setCardBackgroundColor(activity.getColor(R.color.material_state_red));
+            binding.statusIcon.setColorFilter(ContextCompat.getColor(requireContext(), R.color.material_state_red));
             binding.statusSummary.setVisibility(View.GONE);
         }
+
         if (isInstalled(FeatureLoader.PACKAGE_WPP) && App.isOriginalPackage()) {
             disableWpp(activity);
         } else {
@@ -272,26 +303,21 @@ public class HomeFragment extends BaseFragment {
         return false;
     }
 
-    private void disableBusiness(FragmentActivity activity) {
-        binding.statusIcon3.setImageResource(R.drawable.ic_round_error_outline_24);
-        binding.statusTitle3.setText(R.string.business_is_not_running_or_has_not_been_activated_in_lsposed);
-        binding.status3.setCardBackgroundColor(activity.getColor(R.color.material_state_red));
-        binding.statusSummary3.setVisibility(View.GONE);
-        binding.rebootBtn2.setVisibility(View.GONE);
-    }
+private void disableBusiness(FragmentActivity activity) {
+    binding.statusIcon3.setImageResource(R.drawable.ic_round_error_outline_24);
+    binding.statusTitle3.setText(R.string.business_is_not_running_or_has_not_been_activated_in_lsposed);
+    binding.statusIcon3.setColorFilter(ContextCompat.getColor(activity, R.color.material_state_red)); // <-- Ganti dengan ini
+    binding.statusSummary3.setVisibility(View.GONE);
+    binding.rebootBtn2.setVisibility(View.GONE);
+}
 
-    private void disableWpp(FragmentActivity activity) {
-        binding.statusIcon2.setImageResource(R.drawable.ic_round_error_outline_24);
-        binding.statusTitle2.setText(R.string.whatsapp_is_not_running_or_has_not_been_activated_in_lsposed);
-        binding.status2.setCardBackgroundColor(activity.getColor(R.color.material_state_red));
-        binding.statusSummary1.setVisibility(View.GONE);
-        binding.rebootBtn.setVisibility(View.GONE);
-    }
-
-    private static void checkWpp(FragmentActivity activity) {
-        Intent checkWpp = new Intent(BuildConfig.APPLICATION_ID + ".CHECK_WPP");
-        activity.sendBroadcast(checkWpp);
-    }
+private void disableWpp(FragmentActivity activity) {
+    binding.statusIcon2.setImageResource(R.drawable.ic_round_error_outline_24);
+    binding.statusTitle2.setText(R.string.whatsapp_is_not_running_or_has_not_been_activated_in_lsposed);
+    binding.statusIcon2.setColorFilter(ContextCompat.getColor(activity, R.color.material_state_red)); // <-- Ganti dengan ini
+    binding.statusSummary1.setVisibility(View.GONE);
+    binding.rebootBtn.setVisibility(View.GONE);
+}
 
     @Override
     public void onDestroyView() {
