@@ -136,24 +136,28 @@ public class CustomToolbar extends Feature {
                     return true;
                 });
             } else if (typeArchive.equals("3")) {
-                var bottomNavView = homeActivity.findViewById(Utils.getID("nav_view", "id"));
+                var bottomNavView = homeActivity.findViewById(Utils.getID("bottom_navigation", "id"));
 
-            if (bottomNavView != null) {
-                var chatsTab = bottomNavView.findViewById(Utils.getID("navigation_chat", "id"));
+                if (bottomNavView instanceof ViewGroup) {
+                    var bottomNavContainer = (ViewGroup) bottomNavView;
+                    if (bottomNavContainer.getChildCount() > 0) {
+                        var tabContainer = (ViewGroup) bottomNavContainer.getChildAt(0);
+                        if (tabContainer != null && tabContainer.getChildCount() > 0) {
+                            var chatsTab = tabContainer.getChildAt(0);
 
-            if (chatsTab != null) {
-                var onMultiClickListener = new OnMultiClickListener(5, 700) {
-                    @Override
-                    public void onMultiClick(View v) {
-                        Intent intent = new Intent();
-                        intent.setClassName(Utils.getApplication().getPackageName(), "com.whatsapp.conversationslist.ArchivedConversationsActivity");
-                        homeActivity.startActivity(intent);
+                            var onMultiClickListener = new OnMultiClickListener(5, 700) {
+                                @Override
+                                public void onMultiClick(View v) {
+                                    Intent intent = new Intent();
+                                    intent.setClassName(Utils.getApplication().getPackageName(), "com.whatsapp.conversationslist.ArchivedConversationsActivity");
+                                    homeActivity.startActivity(intent);
+                                }
+                            };
+                            chatsTab.setOnClickListener(onMultiClickListener);
+                        }
                     }
-                };
-                chatsTab.setOnClickListener(onMultiClickListener);
+                }
             }
-        }
-    }
 
             if (!showBio && !showName) return;
 
