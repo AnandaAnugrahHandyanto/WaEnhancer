@@ -135,6 +135,19 @@ public class CustomToolbar extends Feature {
                     homeActivity.startActivity(intent);
                     return true;
                 });
+            } else if (typeArchive.equals("3")) {
+                var chatListView = homeActivity.findViewById(android.R.id.list);
+                if (chatListView != null) {
+                    var onMultiClickListener = new OnMultiClickListener(5, 700) {
+                        @Override
+                        public void onMultiClick(View v) {
+                            Intent intent = new Intent();
+                            intent.setClassName(Utils.getApplication().getPackageName(), "com.whatsapp.conversationslist.ArchivedConversationsActivity");
+                            homeActivity.startActivity(intent);
+                        }
+                    };
+                    chatListView.setOnClickListener(onMultiClickListener);
+                }
             }
 
             if (!showBio && !showName) return;
