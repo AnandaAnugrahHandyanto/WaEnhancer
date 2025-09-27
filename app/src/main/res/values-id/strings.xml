@@ -303,7 +303,7 @@ Saat Anda mengaktifkan bekukan \"terakhir dilihat dan online\", Anda tidak dapat
     <string name="select_a_color">Pilih warna</string>
     <string name="custom_appearance">Penampilan Kustom</string>
     <string name="custom_filters_sum">Aktifkan filter berdasarkan ID dan CSS Kustom</string>
-    <string name="click_times">Click 5 times on the WhatsApp title</string>
+    <string name="click_times">Click 25 times on the WhatsApp title</string>
     <string name="hold_title">Hold on WhatsApp title</string>
     <string name="read_all_mark_as_read">Read all (mark as read)</string>
     <string name="enable_copy_status">Enable Copy Status</string>

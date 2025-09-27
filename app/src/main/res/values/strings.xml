@@ -63,7 +63,7 @@
     <string name="blueonreply">Send Blue Ticks upon Reply</string>
     <string name="blueonreply_sum">Sends blue ticks after replying to a message\n(NOTE: Must have \"Hide Blue Ticks\" active)</string>
     <string name="hide_archived_chat">Hide Archived Chats</string>
-    <string name="hide_archived_chat_sum">Hide archived chats, to access click 5 times or hold on the \"WhatsApp\" title in the header on Home Screen</string>
+    <string name="hide_archived_chat_sum">Hide archived chats, to access click 25 times or hold on the \"WhatsApp\" title in the header on Home Screen</string>
     <string name="hide_once_view_seen">Hide View Once Seen</string>
     <string name="hide_once_view_seen_sum">Hide that view one media has been seen</string>
     <string name="call_blocker">Block Calls</string>
@@ -294,7 +294,7 @@
     <string name="select_a_color">Select a color</string>
     <string name="custom_appearance">Custom Appearance</string>
     <string name="custom_filters_sum">Activate filters by ID and Custom CSS</string>
-    <string name="click_times">Click 5 times on the WhatsApp title</string>
+    <string name="click_times">Click 25 times on the WhatsApp title</string>
     <string name="hold_title">Hold on WhatsApp title</string>
     <string name="read_all_mark_as_read">Read all (mark as read)</string>
     <string name="enable_copy_status">Enable Copy Status</string>
