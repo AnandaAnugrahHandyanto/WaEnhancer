@@ -319,6 +319,11 @@ private void disableWpp(FragmentActivity activity) {
     binding.rebootBtn.setVisibility(View.GONE);
 }
 
+    private static void checkWpp(FragmentActivity activity) {
+        Intent checkWpp = new Intent(BuildConfig.APPLICATION_ID + ".CHECK_WPP");
+        activity.sendBroadcast(checkWpp);
+    }
+    
     @Override
     public void onDestroyView() {
         super.onDestroyView();
