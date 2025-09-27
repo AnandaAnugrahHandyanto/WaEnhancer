@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/alfia_restu_manda"
+            android:src="@drawable/alifia_restu_ananda"
             tools:ignore="ContentDescription" />
 
         <rikka.widget.borderview.BorderNestedScrollView
