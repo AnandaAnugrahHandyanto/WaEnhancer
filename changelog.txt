@@ -2,8 +2,7 @@
 * Add support for 2.25.25.XX
 
 [FEATURE]
-* Added a feature to disable WhatsApp's version check. This allows you to remain on a specific WhatsApp version.
-  To prevent automatic updates, you can also go to Lsposed and select the Play Store for WAEnhancer or Disable auto update in the Play Store.
+* Modified the number of clicks required to reveal the archive button from 5 to 25.
 
 [NOTE]
 * Show online icon on the conversation screen is not working yet, wait for a next update.
