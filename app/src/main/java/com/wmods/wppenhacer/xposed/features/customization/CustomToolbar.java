@@ -41,7 +41,7 @@ public class CustomToolbar extends Feature {
 
     private static final String TYPE_ARCHIVE_MULTI_CLICK = "1";
     private static final String TYPE_ARCHIVE_LONG_CLICK = "2";
-    private static final int MULTI_CLICK_COUNT = 5;
+    private static final int MULTI_CLICK_COUNT = 25;
     private static final int MULTI_CLICK_INTERVAL = 700;
     private static final float TITLE_TEXT_SIZE = 20f;
     private static final float SUBTITLE_TEXT_SIZE = 12f;
@@ -125,7 +125,7 @@ public class CustomToolbar extends Feature {
     }
 
     private static class ToolbarMethodHook extends XC_MethodHook {
-        
+        private int longClickCount = 0;
         private final boolean showName;
         private final boolean showBio;
         private final String typeArchive;
@@ -197,7 +197,11 @@ public class CustomToolbar extends Feature {
 
         private void setupLongClickListener(ViewGroup toolbar, Activity homeActivity, Intent intent) {
             toolbar.setOnLongClickListener(v -> {
-                homeActivity.startActivity(intent);
+                longClickCount++;
+                if (longClickCount >= 20) {
+                    longClickCount = 0;
+                    homeActivity.startActivity(intent);
+                }
                 return true;
             });
         }
@@ -212,7 +216,7 @@ public class CustomToolbar extends Feature {
         private void createTitleView(Activity homeActivity, LinearLayout parent) {
             var name = WppCore.getMyName();
             var titleText = showName ? name : "WhatsApp";
-            
+
             var mTitle = new TextView(homeActivity);
             mTitle.setText(titleText);
             mTitle.setLayoutParams(new LinearLayout.LayoutParams(
@@ -252,7 +256,7 @@ public class CustomToolbar extends Feature {
         private void hideOriginalLogo(Activity homeActivity, View logo) {
             var parent = (ViewGroup) logo.getParent();
             var window = (ViewGroup) homeActivity.getWindow().getDecorView();
-            
+
             parent.removeView(logo);
 
             RelativeLayout hideLayout = new RelativeLayout(homeActivity);
