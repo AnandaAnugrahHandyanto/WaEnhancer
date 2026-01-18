@@ -126,6 +126,7 @@ public class CustomToolbar extends Feature {
 
     private static class ToolbarMethodHook extends XC_MethodHook {
         private int longClickCount = 0;
+        private long lastClickTime = 0;
         private final boolean showName;
         private final boolean showBio;
         private final String typeArchive;
@@ -139,6 +140,9 @@ public class CustomToolbar extends Feature {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             var homeActivity = (Activity) param.thisObject;
+
+            longClickCount = 0;
+
             ViewGroup toolbar = homeActivity.findViewById(Utils.getID("toolbar", "id"));
             var logo = toolbar.findViewById(Utils.getID("toolbar_logo", "id"));
 
@@ -197,7 +201,15 @@ public class CustomToolbar extends Feature {
 
         private void setupLongClickListener(ViewGroup toolbar, Activity homeActivity, Intent intent) {
             toolbar.setOnLongClickListener(v -> {
+                long currentTime = System.currentTimeMillis();
+
+                if (currentTime - lastClickTime > 5000) {
+                    longClickCount = 0;
+                }
+
+                lastClickTime = currentTime;
                 longClickCount++;
+
                 if (longClickCount >= 20) {
                     longClickCount = 0;
                     homeActivity.startActivity(intent);

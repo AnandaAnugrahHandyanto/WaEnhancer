@@ -1,8 +1,7 @@
 [WHATSAPP]
-* Added: Increase hidden chat multi-click trigger to 25 clicks.
-* Added: Increase hidden chat long-press trigger to 20 repeats.
-* Removed: Toast notification when performing long*press on toolbar.
-* Improved: Refactored CustomToolbar click listeners for better stability.
-
+* Fixed: Resolved a bug where the hidden chat long press counter persisted across sessions.
+* Added: Implementation of a 5 second timeout for the hidden chat trigger to ensure security.
+* Improved: Automatic counter reset whenever the WhatsApp Home screen is re-initialized.
+* Stability: Refined click listener logic in CustomToolbar for a more consistent user experience.
 [WAE]
 * Update translations
