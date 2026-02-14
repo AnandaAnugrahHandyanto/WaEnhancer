@@ -1,7 +1,8 @@
-[WHATSAPP]
-* Fixed: Resolved a bug where the hidden chat long press counter persisted across sessions.
-* Added: Implementation of a 5 second timeout for the hidden chat trigger to ensure security.
-* Improved: Automatic counter reset whenever the WhatsApp Home screen is re-initialized.
-* Stability: Refined click listener logic in CustomToolbar for a more consistent user experience.
-[WAE]
-* Update translations
+[WhatsApp]
+* Added support do Whatsapp 2.26.5.XX
+
+[Fixed]
+- Fixed media quality selector
+- Fixed issue when sending high-resolution videos
+- Fixed landscape video issue
+- Fixed profile picture download for old contacts
